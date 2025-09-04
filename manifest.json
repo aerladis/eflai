@@ -1,0 +1,11 @@
+{
+  "version": "1.3.3",
+  "url": "https://github.com/aerladis/topluhesap/releases/download/beta/sonfinc.exe",
+   "notes": [
+    "- PDF Kılavuz butonları eklendi",
+    "- GE / KIDS&TEENS klasör seçimi eklendi",
+    "- Oluşan CSV'yi tekrar düzenleme özelliği eklendi",
+    "- Önizleme panelinde kullanıcıları devre dışı bırakabilme özelliği eklendi",
+    "- Hata Düzeltmeleri"
+  ]
+}
