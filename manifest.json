@@ -1,8 +1,9 @@
 {
-  "version": "0.6 BETA",
+  "version": "0.7 BETA",
   "url": "https://github.com/aerladis/eflai/releases/download/relase/EFL-Cafe.exe",
    "notes": [
-    "- Fixed -Icon Bug-",
-     "- Added Auto Update Checker-"
+    "- Fixed Icon Bug",
+    "- Added Auto Update Checker",
+    "- Fixed Scaling Bug"
   ]
 }
