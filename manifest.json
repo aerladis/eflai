@@ -1,11 +1,7 @@
 {
-  "version": "0.11 BETA",
-  "url": "https://github.com/aerladis/eflai/releases/download/relase/EFL-Cafefix.exe",
+  "version": "0.12 BETA",
+  "url": "https://github.com/aerladis/eflai/releases/download/relase/EFL-Cafex.exe",
    "notes": [
-    "FIXED VARIABLE BUG",
-    "Fixed Icon Bug",
-    "Added Auto Update Checker",
-    "Added DEBUG MODE",
-    "Fixed Scaling Bug"
+    "Experimental: Advanced Features"
   ]
 }
