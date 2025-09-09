@@ -1,9 +1,10 @@
 {
-  "version": "0.13 BETA",
-  "url": "https://github.com/aerladis/eflai/releases/download/relase/EFL-Cafexocr.exe",
+  "version": "0.14 BETA",
+  "url": "https://github.com/aerladis/eflai/releases/download/relase/EFL-Cafexocru.exe",
    "notes": [
     "Experimental: Advanced Features",
     "OCR Detection is added",
+    "Fixed Update Bug",
     "UI Tweaks"
   ]
 }
