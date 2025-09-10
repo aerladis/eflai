@@ -1,10 +1,10 @@
 {
-  "version": "0.15 BETA",
-  "url": "https://github.com/aerladis/eflai/releases/download/relase/EFL-CafeWizard.exe",
+  "version": "0.20 BETA",
+  "url": "https://github.com/aerladis/eflai/releases/download/relase/EFL-Cafe-Wizard.exe",
    "notes": [
     "Experimental: Advanced Features",
     "OCR Detection is added",
-    "Fixed Update Bug",
+    "Revamped Updater",
     "UI Tweaks"
   ]
 }
