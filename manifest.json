@@ -1,10 +1,9 @@
 {
-  "version": "0.20 BETA",
-  "url": "https://github.com/aerladis/eflai/releases/download/relase/EFL-Cafe-Wizard.exe",
+  "version": "0.21 BETA",
+  "url": "https://github.com/aerladis/eflai/releases/download/relase/EFLCafefixx",
    "notes": [
-    "Experimental: Advanced Features",
-    "OCR Detection is added",
-    "Revamped Updater",
+    "Fixed PDF Bug",
+    "OCR Drag and Drop  added",
     "UI Tweaks"
   ]
 }
