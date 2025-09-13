@@ -66,6 +66,9 @@ jobs:
         # Run PyInstaller with macOS spec
         pyinstaller --clean EFL-Cafe-Mac.spec
         
+        # Alternative: Build using main.py if spec doesn't work
+        # pyinstaller --onefile --windowed --name EFL-Cafe main.py
+        
     - name: Test the built application
       run: |
         # Check if the app was created
