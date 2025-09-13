@@ -1,9 +1,8 @@
 {
-  "version": "0.21 BETA",
-  "url": "https://github.com/aerladis/eflai/releases/download/relase/EFL-Cafefixx.exe",
+  "version": "0.22 BETA",
+  "url": "https://github.com/aerladis/eflai/releases/download/relase/EFL-Cafe22.exe",
    "notes": [
-    "Fixed PDF Bug",
-    "OCR Drag and Drop  added",
-    "UI Tweaks"
+    "Golden Copy Before First Release"
+
   ]
 }
