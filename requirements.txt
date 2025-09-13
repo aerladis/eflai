@@ -1,0 +1,8 @@
+PyQt5==5.15.9
+google-generativeai
+python-docx
+Pillow
+pytesseract
+PyMuPDF
+reportlab
+pyinstaller

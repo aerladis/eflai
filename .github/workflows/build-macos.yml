@@ -1,0 +1,157 @@
+name: Build macOS Application
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        
+    - name: Install system dependencies
+      run: |
+        # Install Tesseract OCR
+        brew install tesseract
+        brew install tesseract-lang
+        
+        # Install other system dependencies
+        brew install poppler
+        
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+          
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install PyQt5==5.15.9
+        pip install google-generativeai
+        pip install python-docx
+        pip install Pillow
+        pip install pytesseract
+        pip install PyMuPDF
+        pip install reportlab
+        pip install pyinstaller
+        
+    - name: Create requirements.txt
+      run: |
+        pip freeze > requirements.txt
+        
+    - name: Verify Tesseract installation
+      run: |
+        tesseract --version
+        tesseract --list-langs
+        
+    - name: Build application
+      run: |
+        # Create dist directory
+        mkdir -p dist
+        
+        # Run PyInstaller with macOS spec
+        pyinstaller --clean EFL-Cafe-Mac.spec
+        
+    - name: Test the built application
+      run: |
+        # Check if the app was created
+        ls -la dist/
+        if [ -f "dist/EFL-Cafe" ]; then
+          echo "✅ Application built successfully"
+          file dist/EFL-Cafe
+        else
+          echo "❌ Application build failed"
+          exit 1
+        fi
+        
+    - name: Create DMG package
+      run: |
+        # Install create-dmg
+        brew install create-dmg
+        
+        # Create app bundle directory
+        mkdir -p "EFL-Cafe.app/Contents/MacOS"
+        mkdir -p "EFL-Cafe.app/Contents/Resources"
+        
+        # Copy the executable
+        cp dist/EFL-Cafe "EFL-Cafe.app/Contents/MacOS/"
+        
+        # Create Info.plist
+        cat > "EFL-Cafe.app/Contents/Info.plist" << EOF
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+        <plist version="1.0">
+        <dict>
+            <key>CFBundleExecutable</key>
+            <string>EFL-Cafe</string>
+            <key>CFBundleIdentifier</key>
+            <string>com.eflcafe.app</string>
+            <key>CFBundleName</key>
+            <string>EFL-Cafe</string>
+            <key>CFBundleVersion</key>
+            <string>1.0.0</string>
+            <key>CFBundleShortVersionString</key>
+            <string>1.0.0</string>
+            <key>CFBundlePackageType</key>
+            <string>APPL</string>
+            <key>CFBundleSignature</key>
+            <string>????</string>
+            <key>LSMinimumSystemVersion</key>
+            <string>10.14</string>
+        </dict>
+        </plist>
+        EOF
+        
+        # Copy resources
+        cp app.ico "EFL-Cafe.app/Contents/Resources/"
+        cp prompts.ini "EFL-Cafe.app/Contents/Resources/"
+        cp "B2 templateee.docx" "EFL-Cafe.app/Contents/Resources/"
+        cp template_base.png "EFL-Cafe.app/Contents/Resources/"
+        
+        # Create DMG
+        create-dmg \
+          --volname "EFL-Cafe" \
+          --volicon "app.ico" \
+          --window-pos 200 120 \
+          --window-size 600 300 \
+          --icon-size 100 \
+          --icon "EFL-Cafe.app" 175 120 \
+          --hide-extension "EFL-Cafe.app" \
+          --app-drop-link 425 120 \
+          "EFL-Cafe-macOS.dmg" \
+          "EFL-Cafe.app"
+          
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: efl-cafe-macos
+        path: |
+          dist/EFL-Cafe
+          EFL-Cafe-macOS.dmg
+          requirements.txt
+        retention-days: 30
+        
+    - name: Create Release (on tag)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          EFL-Cafe-macOS.dmg
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
