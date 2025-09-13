@@ -1,8 +1,9 @@
 {
   "version": "0.22 BETA",
-  "url": "https://github.com/aerladis/eflai/releases/download/relase/EFL-Cafe22.exe",
+  "url": "https://github.com/aerladis/eflai/releases/download/relase/EFL-Cafe23.exe",
    "notes": [
-    "Golden Copy Before First Release"
+    "Golden Copy Before First Release",
+    "Seperated Vocab Section"
 
   ]
 }
